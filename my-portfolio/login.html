@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Jashim Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="form-box">
+      <h2 id="form-title">Login</h2>
+
+      <form id="auth-form">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required id="password-field" />
+        <input type="password" placeholder="Confirm Password" id="confirm-password" style="display: none;" />
+
+        <button type="submit" class="btn-form">Login</button>
+      </form>
+
+      <p id="toggle-text">Don't have an account? <a href="#" id="toggle-link">Sign up</a></p>
+      
+      <!-- Back to Portfolio link -->
+      <a href="index.html" class="home-link">← Back to Portfolio</a>
+    </div>
+  </div>
+
+  <script>
+    const toggleLink = document.getElementById('toggle-link');
+    const formTitle = document.getElementById('form-title');
+    const confirmPassword = document.getElementById('confirm-password');
+    const toggleText = document.getElementById('toggle-text');
+    const formButton = document.querySelector('.btn-form');
+
+    let isSignup = false;
+
+    toggleLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      isSignup = !isSignup;
+
+      if (isSignup) {
+        formTitle.textContent = 'Sign Up';
+        confirmPassword.style.display = 'block';
+        toggleText.innerHTML = 'Already have an account? <a href="#" id="toggle-link">Login</a>';
+        formButton.textContent = 'Sign Up';
+      } else {
+        formTitle.textContent = 'Login';
+        confirmPassword.style.display = 'none';
+        toggleText.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-link">Sign up</a>';
+        formButton.textContent = 'Login';
+      }
+
+      // Re-attach the event listener (since innerHTML replaces the link)
+      document.getElementById('toggle-link').addEventListener('click', toggleLinkClick);
+    });
+
+    function toggleLinkClick(e) {
+      toggleLink.dispatchEvent(new Event('click'));
+    }
+
+    // Simulate a working login/signup
+    document.getElementById('auth-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert(isSignup ? 'Signed up successfully!' : 'Logged in successfully!');
+    });
+  </script>
+
+</body>
+</html>
